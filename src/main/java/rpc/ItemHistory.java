@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class ItemHistory
@@ -34,6 +35,11 @@ public class ItemHistory extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			response.setStatus(403);
+			return;
+		}
 		String userId = request.getParameter("user_id");
 		
 		MySQLConnection connection = new MySQLConnection();
@@ -56,6 +62,11 @@ public class ItemHistory extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		doGet(request, response);
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			response.setStatus(403);
+			return;
+		}
 		MySQLConnection connection = new MySQLConnection();
 		JSONObject input = new JSONObject(IOUtils.toString(request.getReader()));
 		String userId = input.getString("user_id");
@@ -71,6 +82,11 @@ public class ItemHistory extends HttpServlet {
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			response.setStatus(403);
+			return;
+		}
 		MySQLConnection connection = new MySQLConnection();
 		JSONObject input = new JSONObject(IOUtils.toString(request.getReader()));
 		String userId = input.getString("user_id");
